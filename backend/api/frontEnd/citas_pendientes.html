@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citas Pendientes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.10.1/main.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.10.1/main.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@5.10.1/main.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #b4d9c4;
+            height: 100vh;
+        }
+
+        /* Barra lateral */
+        .sidebar {
+            background-color: #4b8063;
+            width: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #ffffff;
+            color: #333;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .sidebar a:hover {
+            background-color: #e0e0e0;
+        }
+
+        .sidebar .home-icon {
+            margin-top: auto;
+            margin-bottom: 20px;
+        }
+
+        .home-icon img {
+            width: 30px;
+            height: auto;
+        }
+
+        /* Contenido principal */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Contenedor de FullCalendar */
+        .calendar-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        /* Panel derecho con calendario mensual y botones de acciones */
+        .right-panel {
+            margin-left: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .monthly-calendar {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            width: 200px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Botones de acción */
+        .action-buttons button {
+            width: 150px;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #ffffff;
+        }
+
+        .realizada { background-color: #4CAF50; }
+        .rechazar { background-color: #f44336; }
+        .reprogramar { background-color: #ffeb3b; color: #333; }
+    </style>
+</head>
+<body>
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <a href="#">Citas Pendientes</a>
+        <a href="#">Citas Realizadas</a>
+        <a href="#">Citas Rechazadas</a>
+        <div class="home-icon">
+            <img src="images/casita.png" alt="Inicio">
+        </div>
+    </div>
+
+    <!-- Contenido principal con calendario de citas -->
+    <div class="main-content">
+        <div class="calendar-container">
+            <div id="calendar"></div>
+        </div>
+    </div>
+
+    <!-- Panel derecho con calendario mensual y botones de acciones -->
+    <div class="right-panel">
+        <div class="monthly-calendar">
+            <h3>Noviembre 2024</h3>
+            <input type="text" id="datepicker" placeholder="Selecciona un día">
+        </div>
+        <div class="action-buttons">
+            <button class="realizada">Realizada</button>
+            <button class="rechazar">Rechazar</button>
+            <button class="reprogramar">Reprogramar</button>
+        </div>
+    </div>
+
+    <!-- Scripts de FullCalendar y Flatpickr -->
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.10.1/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@5.10.1/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@5.10.1/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar FullCalendar
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek',
+                headerToolbar: {
+                    left: '',
+                    center: '',
+                    right: ''
+                },
+                slotMinTime: "08:00:00",
+                slotMaxTime: "14:00:00",
+                events: [
+                    {
+                        title: 'Nombre Paciente\nTipo de cita 1',
+                        start: '2024-11-13T08:00:00',
+                        color: '#d4f4d7',
+                        textColor: '#333',
+                    },
+                    {
+                        title: 'Nombre Paciente\nTipo de cita 2',
+                        start: '2024-11-13T09:30:00',
+                        color: '#ffffcc',
+                        textColor: '#333',
+                    },
+                    {
+                        title: 'Nombre Paciente\nTipo de cita 3',
+                        start: '2024-11-13T11:00:00',
+                        color: '#f8d7da',
+                        textColor: '#333',
+                    }
+                ],
+                slotDuration: '01:00:00',
+                allDaySlot: false,
+                contentHeight: 400,
+                slotLabelFormat: {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    meridiem: false,
+                    hour12: false
+                }
+            });
+            calendar.render();
+
+            // Inicializar Flatpickr para el calendario mensual
+            flatpickr("#datepicker", {
+                inline: true,
+                locale: "es"
+            });
+        });
+    </script>
+</body>
+</html>

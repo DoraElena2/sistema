@@ -1,0 +1,114 @@
+<<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Gestión de Citas</title>
+    <style>
+        body {
+            background-color: #b4d9c4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-color: #4b8063;
+            width: 700px;
+            padding: 20px;
+            border-radius: 50px; /* Hacer más ovalado */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo img {
+            width: 120px;
+            height: auto;
+        }
+
+        .login-form {
+            flex: 2;
+            padding-left: 20px;
+        }
+
+        .login-form h2 {
+            color: #ffffff;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .login-form label {
+            display: block;
+            font-size: 14px;
+            color: #ffffff;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        .login-form input[type="email"],
+        .login-form input[type="password"] {
+            width: 90%; /* Ajuste de tamaño */
+            padding: 8px; /* Reducir padding */
+            margin-bottom: 12px;
+            border: none;
+            border-radius: 20px;
+            background-color: #e6f2eb;
+            font-size: 14px;
+        }
+
+        .login-form button {
+            width: 50%; /* Botón más pequeño */
+            padding: 10px; /* Tamaño ajustado */
+            border: none;
+            border-radius: 10px;
+            background-color: #ffffff;
+            color: #4b8063;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-form button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="images/dentika.jpg" alt="Logo de la Clínica">
+        </div>
+        <div class="login-form">
+            <h2>Dentika</h2>
+            <form id="loginForm">
+                <label for="correo">Correo Electrónico:</label>
+                <input type="email" id="correo" name="correo" required>
+
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+

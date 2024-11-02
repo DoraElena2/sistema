@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reprogramar Cita</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #b4d9c4;
+            height: 100vh;
+        }
+
+        /* Barra lateral */
+        .sidebar {
+            background-color: #4b8063;
+            width: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .sidebar a {
+            display: block;
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #ffffff;
+            color: #333;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .sidebar a:hover {
+            background-color: #e0e0e0;
+        }
+
+        .sidebar .home-icon {
+            margin-bottom: 20px;
+        }
+
+        .home-icon img {
+            width: 30px;
+            height: auto;
+        }
+
+        /* Contenedor del formulario */
+        .overlay-container {
+            background-color: #4b8063;
+            border-radius: 20px;
+            padding: 30px;
+            width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-container {
+            background-color: #e6f2eb;
+            border-radius: 20px;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: left;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container label {
+            display: block;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        /* Colocar Fecha y Hora en columna y botón a la derecha */
+        .form-fields {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .form-inputs {
+            flex: 1;
+        }
+
+        .form-inputs div {
+            margin-bottom: 15px;
+        }
+
+        .form-inputs input[type="text"], .form-inputs input[type="time"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            background-color: #fff;
+            box-sizing: border-box;
+        }
+
+        .reprogramar-btn {
+            background-color: #4b8063;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .reprogramar-btn:hover {
+            background-color: #3e6a52;
+        }
+
+        /* Panel derecho con calendario mensual y botones de acción en columna */
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .monthly-calendar {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            width: 200px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+            align-items: stretch;
+            width: 100%;
+        }
+
+        .action-buttons button {
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .action-buttons .aceptar { background-color: #4CAF50; }
+        .action-buttons .rechazar { background-color: #f44336; }
+        .action-buttons .reprogramar { background-color: #ffeb3b; color: #333; }
+    </style>
+</head>
+<body>
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <div class="sidebar-menu">
+            <a href="#">Citas Pendientes</a>
+            <a href="#">Citas Realizadas</a>
+            <a href="#">Citas Rechazadas</a>
+        </div>
+        <div class="home-icon">
+            <img src="images/casita.png" alt="Inicio">
+        </div>
+    </div>
+
+    <!-- Contenedor principal de reprogramación -->
+    <div class="overlay-container">
+        <h2 style="color: #ffffff; text-align: center; margin: 0;">Reprogramar Cita</h2>
+        <div class="form-container">
+            <form id="reprogramarForm">
+                <div class="form-fields">
+                    <div class="form-inputs">
+                        <div>
+                            <label for="fecha">Fecha</label>
+                            <input type="text" id="fecha" placeholder="Seleccione una fecha" required>
+                        </div>
+                        <div>
+                            <label for="hora">Hora</label>
+                            <input type="time" id="hora" required>
+                        </div>
+                    </div>
+                    <!-- Botón de reprogramar alineado a la derecha de los campos -->
+                    <button type="submit" class="reprogramar-btn">Reprogramar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Panel derecho con calendario mensual y botones en columna -->
+    <div class="right-panel">
+        <div class="monthly-calendar">
+            <h3>Noviembre 2024</h3>
+            <input type="text" id="datepicker" placeholder="Selecciona un día">
+        </div>
+        <div class="action-buttons">
+            <button class="aceptar">Aceptar</button>
+            <button class="rechazar">Rechazar</button>
+            <button class="reprogramar">Reprogramar</button>
+        </div>
+    </div>
+
+    <!-- Flatpickr para el calendario -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // Inicializar Flatpickr en los campos de fecha
+        flatpickr("#fecha", {
+            altInput: true,
+            altFormat: "F j, Y",
+            dateFormat: "Y-m-d",
+            locale: "es",
+        });
+
+        flatpickr("#datepicker", {
+            inline: true,
+            locale: "es"
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
